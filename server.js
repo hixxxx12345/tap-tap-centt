@@ -1,4 +1,4 @@
-/**
+//**
  * ==============================================================================
  * প্রজেক্ট: ট্যাপ ট্যাপ সেন্ট (Tap Tap Cent)
  * বর্ণনা: টেলিগ্রাম মিনি অ্যাপ, বট, ডাটাবেস ও ব্যাকএন্ড সিস্টেম (Adsterra Integrated)
@@ -6,9 +6,7 @@
  */
 
 const express = require('express');
-const http = require('http');
 const path = require('path');
-const crypto = require('crypto');
 const TelegramBot = require('node-telegram-bot-api');
 
 // ==============================================================================
@@ -16,7 +14,7 @@ const TelegramBot = require('node-telegram-bot-api');
 // ==============================================================================
 const PORT = process.env.PORT || 3000;
 const BOT_TOKEN = '9214134541:AAHJ3vJnGmg86mnOkniLTYQHb8BcQ0cGQgk';
-const WEBAPP_URL = process.env.WEBAPP_URL || 'https://your-domain.com'; // আপনার হোস্টিং লাইভ লিংক এখানে বসাবেন
+const WEBAPP_URL = process.env.WEBAPP_URL || 'https://tap-tap-centt-1.onrender.com';
 const ADSTERRA_LINK = 'https://asiafilm.org/4/4fffdc18fd05373692015ae01448a86d';
 
 const app = express();
@@ -47,7 +45,7 @@ const db = {
 // ==============================================================================
 let bot;
 try {
-    bot = new TelegramBot(BOT_TOKEN, { polling: true });
+    bot = new TelegramBot(BOT_TOKEN, { polling: { interval: 2000, autoStart: true, params: { timeout: 10 } } });
 
     bot.onText(/\/start(?:\s+(.+))?/, (msg, match) => {
         const chatId = msg.chat.id;
@@ -321,7 +319,7 @@ app.get('/', (req, res) => {
         let userId = (tg && tg.initDataUnsafe && tg.initDataUnsafe.user) ? tg.initDataUnsafe.user.id : "123456789";
         let userName = (tg && tg.initDataUnsafe && tg.initDataUnsafe.user) ? tg.initDataUnsafe.user.first_name : "ট্যাপার";
         document.getElementById('username').innerText = userName;
-        document.getElementById('refLink').value = 'https://t.me/TT_Cent_Bot?start=' + userId;
+        document.getElementById('refLink').value = 'https://t.me/CentTapTapMining_bot?start=' + userId;
 
         let balance = 0;
         let energy = 1000;
@@ -442,7 +440,7 @@ app.get('/', (req, res) => {
         async function submitWithdrawal() {
             let method = document.getElementById('withdrawMethod').value;
             let amount = parseInt(document.getElementById('withdrawAmount').value);
-            let address = document.getElementById('withdrawAddress'].value;
+            let address = document.getElementById('withdrawAddress').value;
             if(!amount || !address) return alert('সকল তথ্য সঠিকভাবে দিন!');
 
             let res = await fetch('/api/withdraw', {
@@ -470,4 +468,6 @@ app.listen(PORT, () => {
     console.log('🚀 ট্যাপ ট্যাপ সেন্ট (Tap Tap Cent) সার্ভার চালু হয়েছে!');
     console.log('PORT: ' + PORT);
     console.log('================================================');
+});
+
 });
