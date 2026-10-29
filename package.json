@@ -1,0 +1,13 @@
+{
+  "name": "tap-tap-cent",
+  "version": "1.0.0",
+  "description": "Telegram Mini App and Bot",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "node-telegram-bot-api": "^0.66.0"
+  }
+}
